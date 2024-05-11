@@ -1,40 +1,22 @@
-const strandSort = (arr) => {
-  const extract = (arr, x) => {
-    const extracted = [];
-    let i = 0;
-    while (i < arr.length) {
-      if (x.includes(arr[i])) {
-        extracted.push(arr.splice(i, 1)[0]);
-      } else {
-        i++;
+function threeSum(nums) {
+  nums.sort((a, b) => a - b);
+  const result = [];
+  for (let i = 0; i < nums.length - 2; i++) {
+    if (i === 0 || (i > 0 && nums[i] !== nums[i - 1])) {
+      let low = i + 1;
+      let high = nums.length - 1;
+      let sum = 0 - nums[i];
+      while (low < high) {
+        if (nums[low] + nums[high] === sum) {
+          result.push([nums[i], nums[low], nums[high]]);
+          while (low < high && nums[low] === nums[low + 1]) low++;
+          while (low < high && nums[high] === nums[high - 1]) high--;
+          low++;
+          high--;
+        } else if (nums[low] + nums[high] < sum) low++;
+        else high--;
       }
     }
-    return extracted;
-  };
-  const merge = (a, b) => {
-    const merged = [];
-    let i = 0;
-    let j = 0;
-    while (i < a.length && j < b.length) {
-      if (a[i] < b[j]) {
-        merged.push(a[i]);
-        i++;
-      } else {
-        merged.push(b[j]);
-        j++;
-      }
-    }
-    return merged.concat(i < a.length ? a.slice(i) : b.slice(j));
-  };
-  let sorted = [];
-  while (arr.length > 0) {
-    let sublist = [arr.shift()];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] > sublist[sublist.length - 1]) {
-        sublist.push(arr.splice(i, 1)[0]);
-      }
-    }
-    sorted = merge(sorted, sublist);
   }
-  return sorted;
-};
+  return result;
+}
