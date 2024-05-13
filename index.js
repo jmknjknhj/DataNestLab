@@ -5,7 +5,7 @@ function threeSum(nums) {
     if (i === 0 || (i > 0 && nums[i] !== nums[i - 1])) {
       let low = i + 1;
       let high = nums.length - 1;
-      let sum = 0 - nums[i];
+      const sum = 0 - nums[i];
       while (low < high) {
         if (nums[low] + nums[high] === sum) {
           result.push([nums[i], nums[low], nums[high]]);
